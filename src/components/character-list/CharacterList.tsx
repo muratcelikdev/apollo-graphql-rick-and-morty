@@ -1,4 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Character, { CharacterProps } from 'components/character/Character';
 import * as S from 'components/character-list/CharacterList.styles';
@@ -31,7 +32,11 @@ const CharacterList = (): JSX.Element => {
     return;
   };
 
-  return <S.CharacterListContainer>{renderCharacters()}</S.CharacterListContainer>;
+  return (
+    <S.CharacterListContainer>
+      <S.ScrollContainer>{renderCharacters()}</S.ScrollContainer>
+    </S.CharacterListContainer>
+  );
 };
 
 export default CharacterList;
