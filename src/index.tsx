@@ -4,6 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import GlobalStyle from 'theme/GlobalStyle';
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -14,6 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
+      <GlobalStyle />
       <App />
     </ApolloProvider>
   </React.StrictMode>
