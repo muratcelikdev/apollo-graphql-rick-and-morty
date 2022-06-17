@@ -5,10 +5,11 @@ import * as S from 'components/radio-group/RadioGroup.styles';
 interface RadioGroupProps {
   values: string[];
   onSelect: (value: string) => void;
+  defaultValue?: string | null;
 }
 
-const RadioGroup = ({ values, onSelect }: RadioGroupProps) => {
-  const [selectedValue, setSelectedValue] = useState<typeof values[number] | null>(null);
+const RadioGroup = ({ values, onSelect, defaultValue = null }: RadioGroupProps) => {
+  const [selectedValue, setSelectedValue] = useState<typeof values[number] | null>(defaultValue);
 
   useEffect(() => {
     if (typeof selectedValue === 'string') {
