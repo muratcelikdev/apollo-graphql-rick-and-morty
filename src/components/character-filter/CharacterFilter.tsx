@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
 import FilterIcon from 'assets/svg/filter.svg';
 
@@ -8,6 +8,8 @@ import * as S from 'components/character-filter/CharacterFilter.styles';
 import Modal from 'components/modal/Modal';
 import RadioGroup from 'components/radio-group/RadioGroup';
 
+import { useFilter } from 'context/FilterContext';
+
 interface CharacterFilterProps {
   className?: string;
 }
@@ -15,7 +17,12 @@ interface CharacterFilterProps {
 const { RICK, MORTY } = Characters;
 
 const CharacterFilter = ({ className }: CharacterFilterProps) => {
-  const buttonText = `${RICK} and ${MORTY}`;
+  const { selectedCharacter, setSelectedCharacter } = useFilter();
+
+  const buttonText = useMemo(
+    () => selectedCharacter ?? `${RICK} and ${MORTY}`,
+    [selectedCharacter]
+  );
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -23,9 +30,12 @@ const CharacterFilter = ({ className }: CharacterFilterProps) => {
     setModalVisible(!modalVisible);
   }, [modalVisible]);
 
-  const handleSelectedCharacter = useCallback((character: string) => {
-    // handle selected character
-  }, []);
+  const handleSelectedCharacter = useCallback(
+    (character: string) => {
+      setSelectedCharacter?.(character);
+    },
+    [setSelectedCharacter]
+  );
 
   return (
     <>
@@ -37,7 +47,11 @@ const CharacterFilter = ({ className }: CharacterFilterProps) => {
       </S.Container>
 
       <Modal visible={modalVisible} title="Filter" onClose={handleModalToggle}>
-        <RadioGroup values={Object.values(Characters)} onSelect={handleSelectedCharacter} />
+        <RadioGroup
+          values={Object.values(Characters)}
+          onSelect={handleSelectedCharacter}
+          defaultValue={selectedCharacter}
+        />
       </Modal>
     </>
   );

@@ -1,7 +1,13 @@
 import CharacterList from 'components/character-list/CharacterList';
 
+import FilterProvider from 'context/FilterContext';
+
 const App = () => {
-  return <CharacterList />;
+  return (
+    <FilterProvider>
+      <CharacterList />
+    </FilterProvider>
+  );
 };
 
 export default App;
