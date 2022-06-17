@@ -6,6 +6,7 @@ import { Characters } from 'common/constants';
 
 import * as S from 'components/character-filter/CharacterFilter.styles';
 import Modal from 'components/modal/Modal';
+import RadioGroup from 'components/radio-group/RadioGroup';
 
 interface CharacterFilterProps {
   className?: string;
@@ -22,6 +23,10 @@ const CharacterFilter = ({ className }: CharacterFilterProps) => {
     setModalVisible(!modalVisible);
   }, [modalVisible]);
 
+  const handleSelectedCharacter = useCallback((character: string) => {
+    // handle selected character
+  }, []);
+
   return (
     <>
       <S.Container className={className}>
@@ -32,7 +37,7 @@ const CharacterFilter = ({ className }: CharacterFilterProps) => {
       </S.Container>
 
       <Modal visible={modalVisible} title="Filter" onClose={handleModalToggle}>
-       {/* Implement Content */}
+        <RadioGroup values={Object.values(Characters)} onSelect={handleSelectedCharacter} />
       </Modal>
     </>
   );
