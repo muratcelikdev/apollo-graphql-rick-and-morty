@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CharacterListContainer = styled.div`
+export const ScrollContainer = styled.div`
   width: 100%;
   height: 100%;
   max-height: 100vh;
@@ -9,7 +9,7 @@ export const CharacterListContainer = styled.div`
   overflow-y: auto;
 `;
 
-export const ScrollContainer = styled.div`
+export const CharacterListContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
