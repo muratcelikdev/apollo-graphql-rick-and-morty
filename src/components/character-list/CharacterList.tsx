@@ -30,9 +30,12 @@ const CharacterList = (): JSX.Element => {
   const [characterList, setCharacterList] = useState<CharacterProps[]>([]);
   const [characterToDisplay, setCharacterToDisplay] = useState<string | null>(null);
 
-  const addMoreCharactersIntoList = (newList: CharacterProps[]) => {
-    setCharacterList([...characterList, ...newList]);
-  };
+  const addMoreCharactersIntoList = useCallback(
+    (newList: CharacterProps[]) => {
+      setCharacterList([...characterList, ...newList]);
+    },
+    [characterList]
+  );
 
   useEffect(() => {
     if (data) {
@@ -69,7 +72,7 @@ const CharacterList = (): JSX.Element => {
         });
       }
     }
-  }, [fetchMore, addMoreCharactersIntoList]);
+  }, [fetchMore, addMoreCharactersIntoList, data?.characters?.results.length]);
 
   const handleFilterChange = useCallback((value: string) => {
     setCharacterToDisplay(value);
