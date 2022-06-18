@@ -28,7 +28,6 @@ const CharacterList = (): JSX.Element => {
   });
 
   const [characterList, setCharacterList] = useState<CharacterProps[]>([]);
-  const [displayList, setDisplayList] = useState<CharacterProps[]>([]);
   const [characterToDisplay, setCharacterToDisplay] = useState<string | null>(null);
 
   const addMoreCharactersIntoList = (newList: CharacterProps[]) => {
@@ -41,22 +40,21 @@ const CharacterList = (): JSX.Element => {
     }
   }, [data]);
 
-  useEffect(() => {
+  const renderCharacters = () => {
     if (characterToDisplay) {
       const filteredCharacters = characterList.filter((character: CharacterProps) =>
         character.name.toLowerCase().includes(characterToDisplay.toLowerCase())
       );
-      setDisplayList(filteredCharacters);
-    } else {
-      setDisplayList(characterList);
-    }
-  }, [characterList, characterToDisplay]);
 
-  const renderCharacters = () =>
-    displayList.length > 0 &&
-    displayList.map((character: CharacterProps) => (
+      return filteredCharacters.map((character: CharacterProps) => (
+        <Character {...character} key={`char_#${character.id}`} />
+      ));
+    }
+
+    return characterList.map((character: CharacterProps) => (
       <Character {...character} key={`char_#${character.id}`} />
     ));
+  };
 
   const handleScroll = useCallback(() => {
     if (scrollListener.current) {
