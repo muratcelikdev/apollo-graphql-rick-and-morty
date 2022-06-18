@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 
-import Character, { CharacterProps } from 'components/character/Character';
 import * as S from 'components/character-list/CharacterList.styles';
+import Character, { CharacterProps } from 'components/character/Character';
 
 const GET_CHARACTERS = gql`
   query {
@@ -28,6 +28,12 @@ const CharacterList = (): JSX.Element => {
   });
 
   const [characterList, setCharacterList] = useState<CharacterProps[]>([]);
+  const [displayList, setDisplayList] = useState<CharacterProps[]>([]);
+  const [characterToDisplay, setCharacterToDisplay] = useState<string | null>(null);
+
+  const addMoreCharactersIntoList = (newList: CharacterProps[]) => {
+    setCharacterList([...characterList, ...newList]);
+  };
 
   useEffect(() => {
     if (data) {
@@ -35,16 +41,22 @@ const CharacterList = (): JSX.Element => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (characterToDisplay) {
+      const filteredCharacters = characterList.filter((character: CharacterProps) =>
+        character.name.toLowerCase().includes(characterToDisplay.toLowerCase())
+      );
+      setDisplayList(filteredCharacters);
+    } else {
+      setDisplayList(characterList);
+    }
+  }, [characterList, characterToDisplay]);
+
   const renderCharacters = () =>
-    characterList.length > 0 &&
-    characterList.map((character: CharacterProps) => (
+    displayList.length > 0 &&
+    displayList.map((character: CharacterProps) => (
       <Character {...character} key={`char_#${character.id}`} />
     ));
-
-  const addMoreCharactersIntoList = (newList: CharacterProps[]) => {
-    console.log(characterList);
-    setCharacterList([...characterList, ...newList]);
-  };
 
   const handleScroll = useCallback(() => {
     if (scrollListener.current) {
@@ -61,8 +73,13 @@ const CharacterList = (): JSX.Element => {
     }
   }, [fetchMore, addMoreCharactersIntoList]);
 
+  const handleFilterChange = useCallback((value: string) => {
+    setCharacterToDisplay(value);
+  }, []);
+
   return (
     <S.ScrollContainer ref={scrollListener} onScroll={handleScroll}>
+      <S.Filter onFilterChange={handleFilterChange} />
       <S.CharacterListContainer>{renderCharacters()}</S.CharacterListContainer>
     </S.ScrollContainer>
   );

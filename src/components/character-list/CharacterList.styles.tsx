@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import CharacterFilter from 'components/character-filter/CharacterFilter';
+
 export const ScrollContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -17,4 +19,10 @@ export const CharacterListContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+`;
+
+export const Filter = styled(CharacterFilter)`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 48px;
 `;

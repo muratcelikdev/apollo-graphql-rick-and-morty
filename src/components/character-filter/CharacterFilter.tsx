@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 
 import FilterIcon from 'assets/svg/filter.svg';
 
@@ -12,11 +12,12 @@ import { useFilter } from 'context/FilterContext';
 
 interface CharacterFilterProps {
   className?: string;
+  onFilterChange: (value: string) => void;
 }
 
 const { RICK, MORTY } = Characters;
 
-const CharacterFilter = ({ className }: CharacterFilterProps) => {
+const CharacterFilter = ({ className, onFilterChange }: CharacterFilterProps) => {
   const { selectedCharacter, setSelectedCharacter } = useFilter();
 
   const buttonText = useMemo(
@@ -25,6 +26,12 @@ const CharacterFilter = ({ className }: CharacterFilterProps) => {
   );
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (selectedCharacter) {
+      onFilterChange(selectedCharacter);
+    }
+  }, [selectedCharacter, onFilterChange]);
 
   const handleModalToggle = useCallback(() => {
     setModalVisible(!modalVisible);
