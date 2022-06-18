@@ -48,7 +48,7 @@ const CharacterFilter = ({ className, onFilterChange }: CharacterFilterProps) =>
     <>
       <S.Container className={className}>
         <S.ButtonText>{buttonText}</S.ButtonText>
-        <button type="button" onClick={handleModalToggle}>
+        <button type="button" onClick={handleModalToggle} data-testid="filter-button">
           <img src={FilterIcon} alt="filter-icon" />
         </button>
       </S.Container>

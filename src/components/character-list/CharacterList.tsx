@@ -4,7 +4,7 @@ import { useQuery, gql } from '@apollo/client';
 import * as S from 'components/character-list/CharacterList.styles';
 import Character, { CharacterProps } from 'components/character/Character';
 
-const GET_CHARACTERS = gql`
+export const GET_CHARACTERS = gql`
   query {
     characters {
       results {
