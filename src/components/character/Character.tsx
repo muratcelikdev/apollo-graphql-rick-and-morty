@@ -16,16 +16,16 @@ const Character = ({ id, image, name, location }: CharacterProps) => {
       <S.CharacterImage src={image} />
       <S.CharacterInfoContainer>
         <S.CharacterInfo>
-          <S.Text>#id:</S.Text>
+          <S.Title>#id:</S.Title>
           <S.Text>{id}</S.Text>
         </S.CharacterInfo>
         <div>
           <S.CharacterInfo>
-            <S.Text>Name</S.Text>
+            <S.Title>Name:</S.Title>
             <S.Text>{name}</S.Text>
           </S.CharacterInfo>
           <S.CharacterInfo>
-            <S.Text>Location</S.Text>
+            <S.Title>Location:</S.Title>
             <S.Text>{location.name}</S.Text>
           </S.CharacterInfo>
         </div>

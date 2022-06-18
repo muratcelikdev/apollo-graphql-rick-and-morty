@@ -34,3 +34,11 @@ export const Text = styled.label`
   font-weight: 400;
   font-size: 14px;
 `;
+
+export const Title = styled.label`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  margin-right: 6px;
+`;
