@@ -43,20 +43,14 @@ const CharacterList = (): JSX.Element => {
     }
   }, [data]);
 
-  const renderCharacters = () => {
+  const getCharacterListToBeDisplayed = (): CharacterProps[] => {
     if (characterToDisplay) {
-      const filteredCharacters = characterList.filter((character: CharacterProps) =>
+      return characterList.filter((character: CharacterProps) =>
         character.name.toLowerCase().includes(characterToDisplay.toLowerCase())
       );
-
-      return filteredCharacters.map((character: CharacterProps) => (
-        <Character {...character} key={`char_#${character.id}`} />
-      ));
     }
 
-    return characterList.map((character: CharacterProps) => (
-      <Character {...character} key={`char_#${character.id}`} />
-    ));
+    return characterList;
   };
 
   const handleScroll = useCallback(() => {
@@ -77,6 +71,13 @@ const CharacterList = (): JSX.Element => {
   const handleFilterChange = useCallback((value: string) => {
     setCharacterToDisplay(value);
   }, []);
+
+  const renderCharacters = () =>
+    getCharacterListToBeDisplayed().map((character: CharacterProps) => (
+      <S.CharacterItemWrapper>
+        <Character {...character} key={`char_#${character.id}`} />
+      </S.CharacterItemWrapper>
+    ));
 
   return (
     <S.ScrollContainer ref={scrollListener} onScroll={handleScroll}>

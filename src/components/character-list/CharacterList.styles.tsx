@@ -26,3 +26,5 @@ export const Filter = styled(CharacterFilter)`
   max-width: 1200px;
   margin: 0 auto 48px;
 `;
+
+export const CharacterItemWrapper = styled.div``;
