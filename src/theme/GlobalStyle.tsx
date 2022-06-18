@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import './roboto-fonts.css';
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
